@@ -20,7 +20,7 @@ ruleset wovyn_base {
   rule process_heartbeat {
     select when echo heartbeat
     pre {
-      never_used = event:attrs("genericThing").klog("data")
+      never_used = event:attr("genericThing").klog("Attributes Recieved: ")
     }
     send_directive("say", {"something": "Processed Heartbeat"})
   }
