@@ -20,7 +20,7 @@ ruleset wovyn_base {
   rule process_heartbeat {
     select when echo heartbeat
     pre {
-      temperatureF = event:attr("genericThing"):attr("data").attr("temperature").attr("temperatureF").klog("Attributes Recieved (temperatureF): ")
+      temperatureF = event:attr("genericThing"):attr("data"):attr("temperature"):attr("temperatureF").klog("Attributes Recieved (temperatureF): ")
     }
     send_directive("say", {"something": "Processed Heartbeat"})
   }
