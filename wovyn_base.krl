@@ -8,10 +8,21 @@ ruleset wovyn_base {
     author "Jon Meng"
     logging on
     shares hello
+    shares __testing
+  }
+
+  global {
+    __testing = { "queries": [ { "name": "__testing" } ],
+                  "events": [ { "domain": "post", "type": "test",
+                              "attrs": [ "temp", "baro" ] } ] }
   }
   
   rule process_heartbeat {
     select when echo heartbeat
+    pre {
+      never_used = event:attrs().klog("attrs")
+    }
     send_directive("say", {"something": "Processed Heartbeat"})
   }
+ 
 }
