@@ -13,14 +13,14 @@ ruleset wovyn_base {
 
   global {
     __testing = { "queries": [ { "name": "__testing" } ],
-                  "events": [ { "domain": "post", "type": "test",
+                  "events": [ { "domain": "echo", "type": "heartbeat",
                               "attrs": [ "temp", "baro" ] } ] }
   }
   
   rule process_heartbeat {
     select when echo heartbeat
     pre {
-      never_used = event:attrs.klog("attrs")
+      never_used = event:attrs("genericThing").klog("data")
     }
     send_directive("say", {"something": "Processed Heartbeat"})
   }
