@@ -10,25 +10,8 @@ ruleset wovyn_base {
     shares hello
   }
   
-  global {
-    hello = function(obj) {
-      msg = "Hello " + obj;
-      msg
-    }
-  }
-  
   rule process_heartbeat {
     select when echo heartbeat
     send_directive("say", {"something": "Processed Heartbeat"})
   }
-  
-  rule hello_monkey {
-    select when wovyn monkey
-    pre{
-      //name = event:attr("name").defaultsTo("Monkey").klog("our passed in name: ")
-      name = (event:attr("name") != null) => (event:attr("name")) | "Monkey"
-    }
-    send_directive("say", {"something": "Hello "+name})
-  }
-  
 }
